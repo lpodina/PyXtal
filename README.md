@@ -55,6 +55,11 @@ or
 ```sh
 pip install --upgrade git+https://github.com/MaterSim/PyXtal.git@master
 ```
+MINE: 
+```sh
+pip install --upgrade git+https://github.com/lpodina/PyXtal.git@master
+```
+
 
 If you want to add the Julia package install (required by the use of `pyxtal.lego` module), please use
 
