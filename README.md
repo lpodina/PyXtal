@@ -57,7 +57,7 @@ pip install --upgrade git+https://github.com/MaterSim/PyXtal.git@master
 ```
 MINE: 
 ```sh
-pip install --upgrade git+https://github.com/lpodina/PyXtal.git@master
+pip install -e git+https://github.com/lpodina/PyXtal.git@master#egg=pyxtal
 ```
 
 
