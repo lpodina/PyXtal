@@ -384,6 +384,8 @@ class pyxtal:
                 self.source = "random"
                 self.factor = struc.factor
                 self._get_formula()
+            except TimeoutError:
+            	raise
             except:
                 pass
 
@@ -926,6 +928,8 @@ class pyxtal:
         """
         try:
             new_struc = self._subgroup_by_splitter(splitter)
+        except TimeoutError:
+        	raise
         except:
             print(self)
             print(splitter)
@@ -1036,12 +1040,16 @@ class pyxtal:
         try:
             lattice = Lattice.from_matrix(
                 lat1, ltype=new_struc.group.lattice_type)
+        except TimeoutError:
+        	raise
         except:
             self.optimize_lattice()
             lat1 = np.dot(splitter.R[:3, :3].T, self.lattice.matrix)
             try:
                 lattice = Lattice.from_matrix(
                     lat1, ltype=new_struc.group.lattice_type)
+            except TimeoutError:
+            	raise
             except:
                 # print('problem with splitter, save it to bug.cif')
                 # print(splitter)
@@ -1058,6 +1066,8 @@ class pyxtal:
             try:
                 lattice = lattice.mutate(degree=eps, frozen=False)  # True)
                 # print('debug subgroup', mut_lat, eps, lattice)
+            except TimeoutError:
+            	raise
             except:
                 print("skip lattice mutation mostly for triclinic system")
 
@@ -3140,17 +3150,23 @@ class pyxtal:
 
         try:
             from ccdc import io
+        except TimeoutError:
+        	raise
         except:
             msg = "No CSD-python api is available"
             raise CSDError(msg)
         try:
             from rdkit import Chem
+        except TimeoutError:
+        	raise
         except:
             msg = "No rdkit is available"
             raise CSDError(msg)
 
         try:
             entry = io.EntryReader("CSD").entry(csd_code)
+        except TimeoutError:
+        	raise
         except:
             msg = "Unknown CSD entry: " + csd_code
             raise CSDError(msg)
@@ -3189,6 +3205,8 @@ class pyxtal:
                 parser = CifParser.from_str(cif, occupancy_tolerance=2.0)
                 pmg = get_struc_from__parser(parser)
                 # pmg = Structure.from_str(cif, fmt='cif')
+            except TimeoutError:
+            	raise
             except:
                 print(cif)
                 msg = "Problem in parsing CSD cif"
@@ -3212,9 +3230,13 @@ class pyxtal:
                 try:
                     # print("Add_H=============================================")
                     self.from_seed(pmg, smiles, add_H=True)
+                except TimeoutError:
+                	raise
                 except:
                     msg = f"unknown problems in Reading CSD {csd_code:s} {smi:s}"
                     raise CSDError(msg)
+            except TimeoutError:
+            	raise
             except:
                 msg = f"unknown problems in Reading CSD {csd_code:s} {smi:s}"
                 raise CSDError(msg)
@@ -3227,6 +3249,8 @@ class pyxtal:
         cif0 = self.to_file()
         try:
             Structure.from_str(cif0, fmt="cif")
+        except TimeoutError:
+        	raise
         except:
             print(cif0)
             raise CSDError("Cif Error")
@@ -3512,6 +3536,8 @@ class pyxtal:
         spg = sites[0][1].number
         try:
             self.build(spg, species, numIons, lat, total_sites, dim=dim)
+        except TimeoutError:
+        	raise
         except:
             print("input x", x)
             print("input build", spg, numIons, lat, total_sites)
@@ -3556,6 +3582,8 @@ class pyxtal:
                     self.set_site_coordination(
                         criteria["cutoff"], exclude_ii=option)
                     # print('exclude_ii', option, criteria['cutoff'], self)
+                except TimeoutError:
+                	raise
                 except:
                     if verbose:
                         print("=====Invalid in CN calculation")
@@ -3581,6 +3609,8 @@ class pyxtal:
             try:
                 # TODO: unclear what is the criteria_cutoff
                 dim1 = self.get_dimensionality(criteria_cutoff)
+            except TimeoutError:
+            	raise
             except:
                 dim1 = 3
             dim2 = criteria["Dimension"]
@@ -3800,6 +3830,8 @@ class pyxtal:
             if len(sites) > 0:
                 try:
                     self.build(group, ["C"], [numIons], lattice, [sites])
+                except TimeoutError:
+                	raise
                 except:
                     print("Invalid Build", number, lattice, numIons, sites)
                     self.valid = False

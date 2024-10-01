@@ -316,6 +316,8 @@ class Lattice:
                     # print("End", np.linalg.det(lat2.matrix))
                     d_tol1, f_tol1, a_tol1, switch = lat2.get_diff(lat_ref)
                     # print(d_tol1, f_tol1, a_tol1, switch)
+                except TimeoutError:
+                	raise
                 except:
                     d_tol1, f_tol1, a_tol1, switch = 10, 1.0, 90, None
                 tols[count] = [d_tol1, f_tol1, a_tol1]
@@ -373,6 +375,8 @@ class Lattice:
                     lat2 = Lattice.from_matrix(tmp, ltype=self.ltype)
                     d_tol1, f_tol1, a_tol1, switch = lat2.get_diff(lat_ref)
                     # print(d_tol1, f_tol1, a_tol1, switch)
+                except TimeoutError:
+                	raise
                 except:
                     d_tol1, f_tol1, a_tol1, switch = 10, 1.0, 90, None
                 tols[count] = [d_tol1, f_tol1, a_tol1]
@@ -415,6 +419,8 @@ class Lattice:
                 try:
                     lat_new = Lattice.from_matrix(cell_new, ltype=self.ltype)
                     diffs.append(lat_new.get_worst_angle())
+                except TimeoutError:
+                	raise
                 except:
                     diffs.append(100)
             id = np.array(diffs).argmin()
@@ -530,6 +536,8 @@ class Lattice:
             a, b, c, alpha, beta, gamma = v[0], v[0], v[0], 90, 90, 90
         try:
             return Lattice.from_para(a, b, c, alpha, beta, gamma, ltype=ltype)
+        except TimeoutError:
+        	raise
         except:
             print(a, b, c, alpha, beta, gamma, ltype)
 
@@ -985,6 +993,8 @@ class Lattice:
             paras = [self.a, self.b, self.c, self.alpha, self.beta, self.gamma]
             para2matrix(paras)
             return True
+        except TimeoutError:
+        	raise
         except:
             return False
 
@@ -1568,6 +1578,8 @@ def generate_cellpara_1D(
 
     try:
         unique_axis = kwargs["unique_axis"]
+    except TimeoutError:
+    	raise
     except:
         unique_axis = "a"
     # Store the periodic axis

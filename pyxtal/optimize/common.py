@@ -103,6 +103,8 @@ def mutator(xtal, smiles, opt_lat, ref_pxrd=None, dr=0.125, random_state=None):
     try:
         struc = representation(x, smiles).to_pyxtal(composition=comp)
         return struc
+    except TimeoutError:
+    	raise
     except:
         print(xtal)
         print("x", x)
@@ -188,6 +190,8 @@ def randomizer(
     if xtal.has_special_site():
         try:
             xtal = xtal.to_subgroup()
+        except TimeoutError:
+        	raise
         except:
             print(xtal)
             print(xtal.to_file())
@@ -308,6 +312,8 @@ def optimizer(
                     print("!!!!! Long time in ani calculation", t)
                     print(struc.get_1D_representation().to_string())
                     struc.optimize_lattice()
+                except TimeoutError:
+                	raise
                 except:
                     print("Trouble in optLat")
                     return None
@@ -485,6 +491,8 @@ def optimizer_single(
             # Prevent the false call of matcher call
             try:
                 rmsd = matcher.get_rms_dist(ref_pmg, pmg_s1)
+            except TimeoutError:
+            	raise
             except:
                 rmsd = None
             if rmsd is not None:
@@ -598,6 +606,8 @@ def compute(row, pmg, work_dir, skf_dir, info=None):
             data[key]["diff"] = ben.diff[calc]
             data[key]["cif"] = ben.xtal[calc].to_file()
             data[key]["energy"] = ben.energy[calc] / sum(ben.xtal[calc].numMols)
+        except TimeoutError:
+        	raise
         except:  # noqa: PERF203
             print("=====Calculation is wrong ", calc, row.csd_code)
             data[key]["energy"] = 100000

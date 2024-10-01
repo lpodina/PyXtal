@@ -205,6 +205,8 @@ def fail(*argv):
 
         extype, value, tb = sys.exc_info()
         traceback.print_exc()
+    except TimeoutError:
+    	raise
     except:
         print("~~~ Error: ", e)
 
@@ -276,6 +278,8 @@ def test_atomic():
                 if sga is not None:
                     try:
                         ans2 = sga.get_space_group_number()
+                    except TimeoutError:
+                    	raise
                     except:
                         ans2 = "???"
                 if ans2 is None:
@@ -365,6 +369,8 @@ def test_molecular():
                 if sga is not None:
                     try:
                         ans2 = sga.get_space_group_number()
+                    except TimeoutError:
+                    	raise
                     except:
                         ans2 = "???"
                 if ans2 is None:
@@ -559,12 +565,16 @@ def test_atomic_1D():
             if rand_crystal.valid:
                 try:
                     ans1 = get_symmetry_dataset(rand_crystal.spg_struct, symprec=1e-1)
+                except TimeoutError:
+                	raise
                 except:
                     ans1 = "???"
                 ans1 = "???" if ans1 is None or ans1 == "???" else ans1["number"]
                 sga = SpacegroupAnalyzer(rand_crystal.struct)
                 try:
                     ans2 = sga.get_space_group_number()
+                except TimeoutError:
+                	raise
                 except:
                     ans2 = "???"
                 if ans2 is None:
@@ -633,12 +643,16 @@ def test_molecular_1D():
             if rand_crystal.valid:
                 try:
                     ans1 = get_symmetry_dataset(rand_crystal.spg_struct, symprec=1e-1)
+                except TimeoutError:
+                	raise
                 except:
                     ans1 = "???"
                 ans1 = "???" if ans1 is None or ans1 == "???" else ans1["number"]
                 sga = SpacegroupAnalyzer(rand_crystal.struct)
                 try:
                     ans2 = sga.get_space_group_number()
+                except TimeoutError:
+                	raise
                 except:
                     ans2 = "???"
                 if ans2 is None:
@@ -781,6 +795,8 @@ def test_modules():
     print("Importing openbabel...")
     try:
         print("Success!")
+    except TimeoutError:
+    	raise
     except:
         print("Error: could not import openbabel. Try reinstalling the package.")
 
@@ -811,10 +827,14 @@ def test_modules():
             if passed():
                 try:
                     ele = Element(i)
+                except TimeoutError:
+                	raise
                 except:
                     fail("Could not access Element # " + str(i))
                 try:
                     ele.get_all(0)
+                except TimeoutError:
+                	raise
                 except:
                     fail("Could not access attribute for element # " + str(i))
                 try:
@@ -825,6 +845,8 @@ def test_modules():
                     ele.all_valence_electrons()
                     ele.all_covalent_radii()
                     ele.all_vdw_radii()
+                except TimeoutError:
+                	raise
                 except:
                     fail("Could not access class methods")
 
@@ -849,6 +871,8 @@ def test_modules():
             if passed():
                 try:
                     hall_from_hm(i)
+                except TimeoutError:
+                	raise
                 except:
                     fail("Could not access hm # " + str(i))
 
@@ -873,6 +897,8 @@ def test_modules():
             if passed():
                 try:
                     Collection("molecules")
+                except TimeoutError:
+                	raise
                 except:
                     fail("Could not access hm # " + str(i))
 
@@ -1075,6 +1101,8 @@ def test_modules():
             for i in [1, 2, 229, 230]:
                 get_wyckoffs(i)
                 get_wyckoffs(i, organized=True)
+        except TimeoutError:
+        	raise
         except:
             fail(" Could not access Wyckoff positions for space group # " + str(i))
 
@@ -1091,6 +1119,8 @@ def test_modules():
             for i in [1, 2, 229, 230]:
                 get_wyckoff_symmetry(i)
                 get_wyckoff_symmetry(i, molecular=True)
+        except TimeoutError:
+        	raise
         except:
             fail("Could not access Wyckoff symmetry for space group # " + str(i))
 
@@ -1106,6 +1136,8 @@ def test_modules():
         try:
             for i in [1, 2, 229, 230]:
                 get_wyckoff_generators(i)
+        except TimeoutError:
+        	raise
         except:
             fail("Could not access Wyckoff generators for space group # " + str(i))
 

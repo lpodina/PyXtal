@@ -229,5 +229,7 @@ for i in range(1000):
             % (sg, ans, struc.get_volume(), (time.time() - t0) / 60.0)
         )
         optimize(struc, dir1)
+    except TimeoutError:
+    	raise
     except:
         print("something is wrong")

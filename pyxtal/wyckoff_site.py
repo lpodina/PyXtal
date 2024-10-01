@@ -786,6 +786,8 @@ class mol_site:
 
         try:
             from openbabel import openbabel, pybel
+        except TimeoutError:
+        	raise
         except:
             import openbabel
             import pybel

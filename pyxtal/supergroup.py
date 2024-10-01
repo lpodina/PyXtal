@@ -321,6 +321,8 @@ def find_xyz(G2_op, coord, quadrant=None):
             # print('second G## holder')
             return np.array(G2_holder)
 
+        except TimeoutError:
+        	raise
         except:
             raise RuntimeError("unable to find free parameters in the operation")
 

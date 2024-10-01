@@ -231,6 +231,8 @@ class GULP:
                 struc = pyxtal()
                 struc.from_seed(ase_atoms, tol=tol)
                 break
+            except TimeoutError:
+            	raise
             except:
                 pass
                 # print('Something is wrong', tol)
@@ -412,6 +414,8 @@ class GULP:
                     temp = lines[s + 1].split()
                     alpha, beta, gamma = float(temp[1]), float(temp[3]), float(temp[5])
                     lattice_para = Lattice.from_para(a, b, c, alpha, beta, gamma, ltype)
+        except TimeoutError:
+        	raise
         except:
             self.error = True
             self.energy = None
@@ -678,6 +682,8 @@ class GULP_OC:
                     site.update(coords, self.lattice)
                     count += len(site.molecule.mol)
                 self.structure.optimize_lattice()
+            except TimeoutError:
+            	raise
             except:
                 # print()
                 print("Structure is wrong after optimization")

@@ -258,6 +258,8 @@ class wyckoff_split:
                         break
             try:
                 self.check_orbits(g1_orbits, wp2, wp2_lists)
+            except TimeoutError:
+            	raise
             except:
                 if self.counter != 0:
                     quadrants = [
@@ -393,6 +395,8 @@ class wyckoff_split:
 
                 try:
                     corresponding_positions = [temp.index(x) for x in try_match]
+                except TimeoutError:
+                	raise
                 except:
                     continue
 

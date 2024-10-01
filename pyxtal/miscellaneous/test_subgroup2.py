@@ -22,6 +22,8 @@ for G in range(143, 195):
             pmg_s2 = C2.to_pymatgen()
             try:
                 sga2 = SpacegroupAnalyzer(pmg_s2, symprec=1e-4).get_space_group_symbol()
+            except TimeoutError:
+            	raise
             except:
                 # print("unable to find the space group")
                 sga2 = None

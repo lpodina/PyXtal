@@ -671,6 +671,8 @@ class Profile:
                 try:
                     fwhm_g = self.kwargs["FWHM-G"]
                     fwhm_l = self.kwargs["FWHM-L"]
+                except TimeoutError:
+                	raise
                 except:
                     fwhm_g = self.kwargs["FWHM"]
                     fwhm_l = self.kwargs["FWHM"]

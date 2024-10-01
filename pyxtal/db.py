@@ -138,6 +138,8 @@ def dftb_opt_single(id, xtal, skf_dir, steps, symmetrize, criteria, kresol=0.05)
         my.calc.read_results()
         eng = my.calc.results["energy"]
         s = my.struc
+    except TimeoutError:
+    	raise
     except:
         s = None
         print("Problem in DFTB Geometry optimization", id)
@@ -230,6 +232,8 @@ def gulp_opt_single(id, xtal, ff_lib, path, criteria):
         status = process_xtal(id, xtal, eng, criteria)
         try:
             os.rmdir(path)
+        except TimeoutError:
+        	raise
         except:
             print("Folder is not empty", path)
     return xtal, eng, status
@@ -264,6 +268,8 @@ def mace_opt_single(id, xtal, criteria, step=250):
         xtal = pyxtal()
         xtal.from_seed(s)
         eng = s.get_potential_energy() / len(s)
+    except TimeoutError:
+    	raise
     except:
         error = True
         eng = None
@@ -723,6 +729,8 @@ class database_topology:
                     if hasattr(row, key):
                         setattr(xtal, key, getattr(row, key))
             return xtal
+        except TimeoutError:
+        	raise
         except:
             print("Cannot load the structure")
 
@@ -774,6 +782,8 @@ class database_topology:
                 xtal = pyxtal()
                 try:
                     xtal.from_seed(atoms, tol=tol)
+                except TimeoutError:
+                	raise
                 except:
                     xtal = None
                 if xtal is not None and xtal.valid:
@@ -1402,6 +1412,8 @@ class database_topology:
         """
         try:
             import juliacall
+        except TimeoutError:
+        	raise
         except:
             raise RuntimeError(
                 "Cannot load JuliaCall, Plz enable it before running")
@@ -1464,6 +1476,8 @@ class database_topology:
 
                     # The maximum dimensionality and topology name
                     dim, name, detail = parse_topology(topo)
+                except TimeoutError:
+                	raise
                 except:
                     dim, name, detail = 3, "error", "error"
                 if dim == ref_dim:
@@ -1498,6 +1512,8 @@ class database_topology:
                 try:
                     condensed_structure = condenser.condense_structure(pmg)
                     description = describer.describe(condensed_structure)
+                except TimeoutError:
+                	raise
                 except:
                     description = "N/A"
 
@@ -1615,6 +1631,8 @@ class database_topology:
 
                 status = xtal.check_validity(
                     criteria, True) if criteria is not None else True
+            except TimeoutError:
+            	raise
             except:
                 status = False
                 label = "Error"
@@ -1629,6 +1647,8 @@ class database_topology:
                     label += f"-S{sim:.3f}"
                     if len(label) > 40:
                         label = label[:40]
+                except TimeoutError:
+                	raise
                 except:
                     print("Problem in setting site coordination")
 

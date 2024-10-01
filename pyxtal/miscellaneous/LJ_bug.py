@@ -130,6 +130,8 @@ def parse_symmetry(pos):
     mol = Molecule(["C"] * len(pos), pos)
     try:
         symbol = PointGroupAnalyzer(mol, tolerance=0.1).sch_symbol
+    except TimeoutError:
+    	raise
     except:
         symbol = "N/A"
     return symbol

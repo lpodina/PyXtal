@@ -149,6 +149,8 @@ if __name__ == "__main__":
                 """written = False
                 try:
                     mkdir(outdir)
+                except TimeoutError:
+                	raise
                 except: pass
                 try:
                     comp = str(rand_crystal.struct.composition)
@@ -156,6 +158,8 @@ if __name__ == "__main__":
                     cifpath = outdir + '/' + comp + "_" + str(i+1) + '.cif'
                     CifWriter(rand_crystal.struct, symprec=0.1).write_file(filename = cifpath)
                     written = True
+                except TimeoutError:
+                	raise
                 except: pass"""
 
                 # spglib style structure called cell

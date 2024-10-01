@@ -56,6 +56,8 @@ def check_for_ccdc_structures(cid):
             infos = data["Record"]["Section"][0]["Section"][2]["Section"][0]["Information"]
             for info in infos:
                 csd_codes.append(info["Value"]["StringWithMarkup"][0]["String"])
+    except TimeoutError:
+    	raise
     except:
         print("Fail to parse the following url", url)
     return csd_codes

@@ -4567,6 +4567,8 @@ def abc2matrix(abc):
             j = ord(m.group(4)) - 97
             try:
                 rot_matrix[i, j] = factor
+            except TimeoutError:
+            	raise
             except:
                 print(abc)
                 import sys

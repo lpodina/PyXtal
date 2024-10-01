@@ -164,6 +164,8 @@ class VASP:
         if not self.error:
             try:
                 self.forces = self.structure.get_forces()
+            except TimeoutError:
+            	raise
             except:
                 self.forces = np.zeros([len(self.structure), 3])
             self.energy_per_atom = self.energy / len(self.structure)
@@ -233,6 +235,8 @@ def single_optimize(
             struc = calc.to_pyxtal()
             struc.optimize_lattice()
             return struc, calc.energy_per_atom, calc.cputime, calc.error
+        except TimeoutError:
+        	raise
         except:
             print('vasp single_optimize failed in ', cwd)
             os.chdir(cwd)

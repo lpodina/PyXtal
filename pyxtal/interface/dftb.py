@@ -229,6 +229,8 @@ def DFTB_relax(
         os.remove("dftb_pin.hsd")
         os.remove("geo_end.gen")
         os.remove("charges.bin")
+    except TimeoutError:
+    	raise
     except:
         print("Problem in DFTB calculation")
         struc = None
@@ -714,6 +716,8 @@ class Dftb(FileIOCalculator):
                 # -> SCC is NOT converged, maximal SCC iterations exceeded
                 print("Cannot read energy from this file", os.getcwd())
                 return float(lines[-3].split()[1]) * 27.2114  # hatree to eV
+            except TimeoutError:
+            	raise
             except:
                 return 1.0e5
 

@@ -414,6 +414,8 @@ class GlobalOptimize:
                     try:
                         label = self.tag + "-g" + str(gen) + "-p" + str(i)
                         label += f"-e{e:.3f}-{tag:s}-{match:4.2f}"
+                    except TimeoutError:
+                    	raise
                     except:
                         print("Error in e, tag, match", e, tag, match)
                     f.writelines(xtal.to_file(header=label))
@@ -440,6 +442,8 @@ class GlobalOptimize:
                     try:
                         label = self.tag + "-g" + str(gen) + "-p" + str(i)
                         label += f"-e{e:.3f}-{tag:s}-{d1:4.2f}-{d2:4.2f}"
+                    except TimeoutError:
+                    	raise
                     except:
                         print("Error in e, tag, d1, d2", e, tag, d1, d2)
                     f.writelines(xtal.to_file(header=label))
@@ -555,6 +559,8 @@ class GlobalOptimize:
                 try:
                     # ; print('Debug KONTIQ', struc, e1)
                     e1, f1, s1 = get_lmp_efs(lmp_struc, lmp_in, lmp_dat)
+                except TimeoutError:
+                	raise
                 except:
                     e1 = self.E_max
 
@@ -1162,6 +1168,8 @@ class GlobalOptimize:
                     if self.ref_pxrd is not None:
                         out += f" {matches[id]:6.3f}"
                     print(out)
+                except TimeoutError:
+                	raise
                 except:
                     print('Error', xtal)
                 count += 1

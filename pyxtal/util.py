@@ -320,6 +320,8 @@ def search_csd_code_by_pubchem(cid):
                 infos = data["Record"]["Section"][0]["Section"][2]["Section"][0]["Information"]
                 csd_codes = [info["Value"]["StringWithMarkup"]
                              [0]["String"] for info in infos]
+    except TimeoutError:
+    	raise
     except:
         csd_codes = []
         print("Failed to parse json", url, "\n")

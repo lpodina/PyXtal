@@ -247,6 +247,8 @@ if __name__ == "__main__":
         from ccdc.particle import SlipPlanes
 
         csd = io.EntryReader("CSD")
+    except TimeoutError:
+    	raise
     except:
         csd = None
         print("Cannot import ccdc to check")

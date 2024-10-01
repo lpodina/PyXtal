@@ -461,6 +461,8 @@ class structure_from_ext:
         """
         try:
             from openbabel import openbabel, pybel
+        except TimeoutError:
+        	raise
         except:
             import openbabel
             import pybel

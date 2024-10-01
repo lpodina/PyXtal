@@ -329,6 +329,8 @@ class spherical_image:
                 numbers = xtal.mol_sites[i].molecule.mol.atomic_numbers
                 if numbers.count(7) > 0 or numbers.count(8) > 0:
                     xtal.mol_sites[i].molecule.set_labels()
+            except TimeoutError:
+            	raise
             except:
                 print("Warning! Needs the smiles information!")
         self.xtal = xtal

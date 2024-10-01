@@ -251,6 +251,8 @@ class Tol_matrix:
         try:
             np.save(filename, [self])
             return "Output file to " + outdir + ".npy"
+        except TimeoutError:
+        	raise
         except:
             return "Error: Could not save Tol_matrix to file."
 

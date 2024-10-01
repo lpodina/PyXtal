@@ -92,6 +92,8 @@ class CHARMM:
         self.structure = struc
         try:
             self.structure.optimize_lattice()
+        except TimeoutError:
+        	raise
         except:
             print("bug in Lattice")
             print(self.structure)
@@ -307,6 +309,8 @@ class CHARMM:
                             xyz = line.split()[5:8]
                             XYZ = [float(x) for x in xyz]
                             positions.append(XYZ)
+                        except TimeoutError:
+                        	raise
                         except:
                             # print("Warning: BAD charmm output: " + line)
                             pass
@@ -324,6 +328,8 @@ class CHARMM:
                 self.structure.optimize_lattice()
                 self.structure.update_wyckoffs()
                 # print("after latticeopt  : ", self.structure.lattice, self.structure.check_distance()); import sys; sys.exit()
+            except TimeoutError:
+            	raise
             except:
                 # molecular connectivity or lattice optimization
                 self.structure.energy = self.errorE

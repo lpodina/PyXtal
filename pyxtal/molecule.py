@@ -288,6 +288,8 @@ class pyxtal_molecule:
             try:
                 pga = PointGroupAnalyzer(mo, symtol)
                 mo = pga.symmetrize_molecule()["sym_mol"]
+            except TimeoutError:
+            	raise
             except:
                 print(
                     "Warning: Problem in parsing molecular symmetry with symtol=",

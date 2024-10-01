@@ -74,6 +74,8 @@ class representation_atom:
             a, b, c, alpha, beta, gamma = v[1], v[1], v[1], 90, 90, 90
         try:
             struc.lattice = Lattice.from_para(a, b, c, alpha, beta, gamma, ltype=ltype)
+        except TimeoutError:
+        	raise
         except:
             print(a, b, c, alpha, beta, gamma, ltype)
             raise ValueError("Problem in Lattice")
@@ -316,6 +318,8 @@ class representation:
             a, b, c, alpha, beta, gamma = v[1], v[1], v[1], 90, 90, 90
         try:
             struc.lattice = Lattice.from_para(a, b, c, alpha, beta, gamma, ltype=ltype)
+        except TimeoutError:
+        	raise
         except:
             print(a, b, c, alpha, beta, gamma, ltype)
             raise ValueError("Problem in Lattice")
