@@ -1,7 +1,7 @@
 """
 Module for handling atomic elements.
 """
-
+from concurrent.futures import TimeoutError
 
 class Element:
     """
@@ -353,20 +353,29 @@ class Element:
             try:
                 el = Element(specie)
                 index = el.z
-            except:
+            except TimeoutError:
+                raise
+            except Exception as e:
+                print("exception type: ",type(e).__name__)
                 print("Error: Invalid atomic symbol, name, or number.")
                 return None
         elif type(specie) == Element:
             try:
                 index = specie.z
-            except:
+            except TimeoutError:
+                raise
+            except Exception as e:
+                print("exception type: ",type(e).__name__)
                 print("Error: Element object has no atomic number 'z'.")
                 return None
         else:
             try:
                 el = Element(specie.number)
                 index = el.z
-            except:
+            except TimeoutError:
+                raise
+            except Exception as e:
+                print("exception type: ",type(e).__name__)
                 print("Error: Invalid atomic symbol, name, or number.")
                 return None
         return index
