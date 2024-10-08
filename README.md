@@ -21,6 +21,8 @@
 
 ## Introduction
 
+This readme is the same as PyXta;'s except for some of the installation instructions.
+
 PyXtal is an open source Python package which was initiated by [Qiang Zhu](http://qzhu2017.github.io) and Scott Fredericks. The goal of PyXtal is to develop a fundamental library to allow one to design the material structure with a certain symmetry constraint. These structures can exported to various structural formats for further study. See the [documentation](https://pyxtal.readthedocs.io/en/latest/) for more information.
 
 To contribute to this project, please check [How to contribute?](#how-to-contribute).
@@ -44,7 +46,13 @@ To contribute to this project, please check [How to contribute?](#how-to-contrib
 
 ## Installation
 
-To install the code, one just needs to do
+**To install this version:**
+
+```sh
+pip install -e git+https://github.com/lpodina/PyXtal.git@master#egg=pyxtal
+```
+
+**To install the original:**
 
 ```sh
 pip install pyxtal
@@ -55,11 +63,6 @@ or
 ```sh
 pip install --upgrade git+https://github.com/MaterSim/PyXtal.git@master
 ```
-MINE: 
-```sh
-pip install -e git+https://github.com/lpodina/PyXtal.git@master#egg=pyxtal
-```
-
 
 If you want to add the Julia package install (required by the use of `pyxtal.lego` module), please use
 
