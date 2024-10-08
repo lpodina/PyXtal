@@ -21,7 +21,7 @@
 
 ## Introduction
 
-This readme is the same as PyXta;'s except for some of the installation instructions.
+This readme is the same as PyXtal's except for some of the installation instructions.
 
 PyXtal is an open source Python package which was initiated by [Qiang Zhu](http://qzhu2017.github.io) and Scott Fredericks. The goal of PyXtal is to develop a fundamental library to allow one to design the material structure with a certain symmetry constraint. These structures can exported to various structural formats for further study. See the [documentation](https://pyxtal.readthedocs.io/en/latest/) for more information.
 
